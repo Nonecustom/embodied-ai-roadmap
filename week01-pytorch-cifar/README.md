@@ -15,10 +15,11 @@ I built a small classification example with random data.
 
 | Experiment | Change | Observation |
 |---|---|---|
-| Baseline | lr=0.1, epoch=10 |![baseline figure](./Figure_1.png)|
-| Exp 1 | lr=0.01, epoch=10 |![Exp 1](./Figure_2.png)|
-| Exp 2 | lr=0.1, epoch=50 |![Exp 2](./Figure_3.png)|
-| Exp 3 | lr=0.01, epoch=50 |![Exp 3](./Figure_4.png)|
+| Baseline | lr=0.1, epoch=10 |![baseline figure](./mini_cf_images/Figure_1.png)|
+| Exp 1 | lr=0.01, epoch=10 |![Exp 1](./mini_cf_images/Figure_2.png)|
+| Exp 2 | lr=0.1, epoch=50 |![Exp 2](./mini_cf_images/Figure_3.png)|
+| Exp 3 | lr=0.01, epoch=50 |![Exp 3](./mini_cf_images/Figure_4.png)|
+
 ### Reflection
 The experiment shows that as the number of iterations increases, the loss value decreases, while decreasing the learning rate increases the loss value. Therefore, we can conclude that: 
 1. more iterations result in a smaller loss value, but it will eventually approach a certain value;

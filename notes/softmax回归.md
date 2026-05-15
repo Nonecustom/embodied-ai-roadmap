@@ -15,8 +15,9 @@
 ## other key points
 1. 输出为什么不采用加权的普通除法
     如果采用普通除法，那么输出可能会有负数，采用指数函数保证其非负，同时softmax运算会把其变成和为1的概率分布
-    $$
-    y_1 = \frac{e^{\w_1^T\x}}{\sum_{j=1}^K e^{\w_j^T\x}}, y_2 = \frac{e^{\w_2^T\x}}{\sum_{j=1}^K e^{\w_j^T\x}}, \ldots, y_K = \frac{e^{\w_K^T\x}}{\sum_{j=1}^K e^{\w_j^T\x}}
-    $$
+$$
+y_i = \frac{e^{\mathbf{w}_i^T\mathbf{x}}}{\sum_{j=1}^K e^{\mathbf{w}_j^T\mathbf{x}}}, \quad i = 1, 2, \ldots, K
+$$
+
 2. 交叉熵 loss 为什么是 -log(q)
     交叉熵loss衡量了模型对真实类别的预测概率，值越小表示模型对真实类别的预测越准确。因为交叉熵loss是 -log(q)，当q接近1时，-log(q)接近0；当q接近0时，-log(q)趋向于无穷大。因此，交叉熵loss鼓励模型将真实类别的预测概率尽可能接近1，从而提高模型的准确性。
