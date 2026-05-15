@@ -15,10 +15,10 @@ I built a small classification example with random data.
 
 | Experiment | Change | Observation |
 |---|---|---|
-| Baseline | lr=0.1, epoch=10 |![baseline figure](embodied-ai-roadmap/week01-pytorch-cifar/Figure_1.png)|
-| Exp 1 | lr=0.01, epoch=10 |![Exp 1](embodied-ai-roadmap/week01-pytorch-cifar/Figure_2.png)|
-| Exp 2 | lr=0.1, epoch=50 |![Exp 2](embodied-ai-roadmap/week01-pytorch-cifar/Figure_3.png)|
-| Exp 3 | lr=0.01, epoch=50 |![Exp 3](embodied-ai-roadmap/week01-pytorch-cifar/Figure_4.png)|
+| Baseline | lr=0.1, epoch=10 |![baseline figure](week01-pytorch-cifar/Figure_1.png)|
+| Exp 1 | lr=0.01, epoch=10 |![Exp 1](week01-pytorch-cifar/Figure_2.png)|
+| Exp 2 | lr=0.1, epoch=50 |![Exp 2](week01-pytorch-cifar/Figure_3.png)|
+| Exp 3 | lr=0.01, epoch=50 |![Exp 3](week01-pytorch-cifar/Figure_4.png)|
 ### Reflection
 
 In this example, I learned that a classification model outputs logits, and CrossEntropyLoss compares these logits with class labels.
