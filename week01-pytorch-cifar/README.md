@@ -15,13 +15,14 @@ I built a small classification example with random data.
 
 | Experiment | Change | Observation |
 |---|---|---|
-| Baseline | lr=0.1, epoch=10 |![baseline figure](week01-pytorch-cifar/Figure_1.png)|
-| Exp 1 | lr=0.01, epoch=10 |![Exp 1](week01-pytorch-cifar/Figure_2.png)|
-| Exp 2 | lr=0.1, epoch=50 |![Exp 2](week01-pytorch-cifar/Figure_3.png)|
-| Exp 3 | lr=0.01, epoch=50 |![Exp 3](week01-pytorch-cifar/Figure_4.png)|
+| Baseline | lr=0.1, epoch=10 |![baseline figure](./Figure_1.png)|
+| Exp 1 | lr=0.01, epoch=10 |![Exp 1](./Figure_2.png)|
+| Exp 2 | lr=0.1, epoch=50 |![Exp 2](./Figure_3.png)|
+| Exp 3 | lr=0.01, epoch=50 |![Exp 3](./Figure_4.png)|
 ### Reflection
-
-In this example, I learned that a classification model outputs logits, and CrossEntropyLoss compares these logits with class labels.
+The experiment shows that as the number of iterations increases, the loss value decreases, while decreasing the learning rate increases the loss value. Therefore, we can conclude that: 
+1. more iterations result in a smaller loss value, but it will eventually approach a certain value;
+2. decreasing the learning rate does not necessarily lead to a decrease in the loss value, thus requiring careful selection of the learning rate.
 
 
 ## Week 01 - PyTorch CIFAR10
