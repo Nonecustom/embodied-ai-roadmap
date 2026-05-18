@@ -1,4 +1,4 @@
-# week 01
+# Stage 01: PyTorch CIFAR10
 ## mini_classification
 I built a small classification example with random data.
 
@@ -79,7 +79,7 @@ Conclusions：
 
 ### Reflection
 
-This week I learned:
+This stage I learned:
 1. How to build a simple classification model using PyTorch
 2. How to load and preprocess the CIFAR10 dataset
 3. How to train a CNN model and evaluate its performance

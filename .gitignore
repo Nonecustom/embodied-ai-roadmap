@@ -204,7 +204,7 @@ cython_debug/
 tempCodeRunnerFile.py
 
 # Local datasets
-week01-pytorch-cifar/data/
+stage01-pytorch-cifar/data/
 
 # Ruff stuff:
 .ruff_cache/

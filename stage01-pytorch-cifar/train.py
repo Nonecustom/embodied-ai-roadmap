@@ -2,7 +2,8 @@
 # 1. 导入库
 import torch
 from torch import nn
-from torch.utils.data import DataLoader
+import torch.utils.data
+
 import torchvision
 import torchvision.transforms as transforms
 
@@ -16,7 +17,7 @@ plt.rcParams['axes.unicode_minus'] = False    # 用来正常显示负号
 # 2. 定义 CNN 模型
 #创建SimpleCNN类继承父类nn.Module
 class SimpleCNN(nn.Module):                         
-    def __init__(self):                            ##定义初始化函数作用与当前对象（self）
+    def __init__(self):                             ##定义初始化函数作用与当前对象（self）
         super().__init__()                          ##调用初始化函数
 
         ##提取图片特征,利用Sequential模块组合
@@ -138,14 +139,14 @@ def main():
 
     #使用DataLoader把数据分批次取出来
     ##训练数据集
-    train_loader=DataLoader(
+    train_loader=torch.utils.data.DataLoader(
         train_dataset,                              ##读取之前创建的训练数据集
         batch_size=batch_size,                      ##每个批次读取定义的batch_size张图片及标签
         shuffle=True,                               ##打乱训练数据集，如若不打乱会影响模型的学习
         num_workers=0,                              ##采用0个并发进程执行
     )
     ##测试数据集
-    test_loader=DataLoader(
+    test_loader=torch.utils.data.DataLoader(
         test_dataset,                               ##读取之前创建的测试数据集
         batch_size=batch_size,                      ##每个批次读取定义的batch_size张图片及标签
         shuffle=False,                              ##测试集无需打乱
