@@ -6,6 +6,10 @@ This repository records my learning path toward embodied AI and robot manipulati
 
 Build a low-cost robot arm project using simulation, imitation learning, and real robot experiments.
 
+## Setup
+
+- [Environment setup](./ENVIRONMENT_SETUP.md)
+
 ## Stage Progress
 
 | Stage | Topic | Output | Status |

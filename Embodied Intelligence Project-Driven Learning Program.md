@@ -240,7 +240,7 @@ action = policy(image_feature, robot_state)
 
 建议时间：3-4 周。
 
-当前状态：准备开始。
+当前状态：已跑通 Gymnasium 最小仿真闭环，已完成 random policy、多轮 episode 评估与函数化整理。
 
 ### 阶段目标
 
@@ -259,12 +259,15 @@ action = policy(image_feature, robot_state)
 
 ### 任务清单
 
-- [ ] 先用 Gymnasium 跑通最小 `reset` / `step` 流程
-- [ ] 打印 observation、action、reward、terminated、truncated
+- [x] 先用 Gymnasium 跑通最小 `reset` / `step` 流程
+- [x] 打印 observation、action、reward、terminated、truncated
+- [x] 写一个 random policy 并运行完整 episode
+- [x] 运行 5 个 episode，计算 average reward
+- [x] 将 random policy 评估代码整理成函数结构
 - [ ] 再安装并跑通 MuJoCo 或 ManiSkill
 - [ ] 运行一个简单机械臂环境
 - [ ] 打印 observation 和 action 的形状
-- [ ] 写一个 random policy
+- [x] 写一个 random policy
 - [ ] 写一个简单控制脚本
 - [ ] 让机械臂执行简单动作
 - [ ] 记录成功和失败现象
@@ -683,10 +686,14 @@ ResNet / CLIP → 08
 - [x] 完成 Stage 02：ResNet 图像特征与 CLIP 图文匹配
 - [x] 将仓库结构切换为 Stage 命名
 - [x] 生成 `stage03-robot-sim/README.md`
-- [ ] 选择 Stage 03 的第一个仿真入口：Gymnasium / MuJoCo / ManiSkill
-- [ ] 跑通第一个 `env.reset()` 和 `env.step(action)`
-- [ ] 打印 observation、action、reward、terminated、truncated
-- [ ] 在 `stage03-robot-sim/README.md` 中记录实验结果和问题
+- [x] 选择 Stage 03 的第一个仿真入口：Gymnasium
+- [x] 跑通第一个 `env.reset()` 和 `env.step(action)`
+- [x] 打印 observation、action、reward、terminated、truncated
+- [x] 跑通 random policy 的完整 episode
+- [x] 跑通 5 个 episode 并计算 average reward
+- [x] 在 `stage03-robot-sim/README.md` 中记录实验结果和问题
+- [x] 将 random policy 代码整理成函数：`run_one_episode` / `run_many_episodes` / `main`
+- [ ] 进入 MuJoCo 或 ManiSkill 前，理解当前 CartPole demo 与机械臂仿真的对应关系
 
 当前不要做：
 
