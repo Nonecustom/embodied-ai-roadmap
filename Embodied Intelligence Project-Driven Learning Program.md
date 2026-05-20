@@ -58,7 +58,8 @@ LeRobot / SO-101 机械臂
 - 看完关键视频后，生成一份对应的理解型 `.md` 笔记；
 - 笔记不做视频摘抄，而是围绕“核心问题、名词解释、和代码的关系、和项目的关系、自测问题、我的理解”整理；
 - API 不再堆在一个长文件里，而是按功能模块拆分，方便后续查找。
-- 后续参考代码默认使用纯代码版本，不添加讲解型注释；学习时由我在 `*_reference.py` 中不理解的代码旁用 `#？` 标记问题，再把这些问题整理进对应周目录的 `README.md`。
+- 后续参考代码默认使用纯代码版本，不添加讲解型注释；学习时由我在 `*_reference.py` 中不理解的代码旁用 `#？` 标记问题，再把这些问题整理进对应阶段目录的 `README.md`。
+- 手敲代码时，如果发现关键逻辑、易错点或重要理解，用 `#k` 标记；阶段整理时将这些内容归纳到对应 `README.md` 的 `Key Takeaways`。
 
 ## 3. 阶段路线总览
 
@@ -240,7 +241,7 @@ action = policy(image_feature, robot_state)
 
 建议时间：3-4 周。
 
-当前状态：已跑通 Gymnasium 最小仿真闭环，已完成 random policy、多轮 episode 评估与函数化整理。
+当前状态：已跑通 Gymnasium 与 MuJoCo 最小仿真闭环，已完成 random policy、多轮 episode 评估与函数化整理。
 
 ### 阶段目标
 
@@ -264,9 +265,16 @@ action = policy(image_feature, robot_state)
 - [x] 写一个 random policy 并运行完整 episode
 - [x] 运行 5 个 episode，计算 average reward
 - [x] 将 random policy 评估代码整理成函数结构
-- [ ] 再安装并跑通 MuJoCo 或 ManiSkill
-- [ ] 运行一个简单机械臂环境
-- [ ] 打印 observation 和 action 的形状
+- [x] 再安装并跑通 MuJoCo
+- [x] 跑通 MuJoCo 单步 `reset` / `step`
+- [x] 跑通 MuJoCo random policy 完整 episode
+- [x] 跑通 MuJoCo 5 个 episode，计算 average reward
+- [x] 安装并跑通 ManiSkill
+- [x] 运行一个简单机械臂环境
+- [x] 打印 observation 和 action 的形状
+- [x] 跑通 ManiSkill random policy 完整 episode
+- [x] 跑通 ManiSkill 5 个 episode，计算 average reward
+- [x] 跑通 ManiSkill render 可视化
 - [x] 写一个 random policy
 - [ ] 写一个简单控制脚本
 - [ ] 让机械臂执行简单动作
@@ -590,24 +598,62 @@ embodied-ai-roadmap/
     videos/
 ```
 
-## 12. 阶段复盘模板
+## 12. 学习逻辑链与阶段复盘
 
-每个阶段结束时回答：
+每个阶段结束时，不只记录“做了什么”，还要整理“为什么这样学”。  
+复盘重点是学习逻辑链，而不是写长篇总结。
+
+推荐模板：
 
 ```text
-本阶段主题：
+## Learning Logic Chain
 
-本阶段完成的代码：
+A
+-> B
+-> C
+-> D
 
-本阶段跑通的实验：
+一句话说明：
+这个阶段把什么能力推进到了什么能力。
 
-本阶段遇到的报错：
+## Guided Stage Review
 
-本阶段理解的新概念：
+这个区域不要直接写成完整答案，而是用填空和提问引导我自己复盘。
 
-本阶段仍不理解的问题：
+1. 这个阶段为什么从 A 进入 B？
+
+2. A 和 B 的共同点是什么？
+
+3. A 和 B 的关键区别是什么？
+
+4. 本阶段最重要的代码接口是什么？
+
+5. 本阶段哪个概念最接近最终机械臂项目？
+
+6. 如果复试老师问“你为什么这样安排学习顺序”，我该怎么回答？
 
 下一阶段最小目标：
+- 
+```
+
+当前总逻辑链：
+
+```text
+mini classification
+-> logits / scores
+-> softmax probability
+-> CIFAR10 image classification
+-> CNN feature extraction
+-> ResNet pretrained visual feature
+-> CLIP image-text feature matching
+-> Gymnasium env.reset / env.step
+-> CartPole discrete action
+-> random policy episode evaluation
+-> MuJoCo continuous action
+-> MuJoCo physics simulation and render
+-> ManiSkill robot arm simulation
+-> behavior cloning
+-> real robot policy
 ```
 
 ## 13. 笔记与 API 管理规范
@@ -693,7 +739,18 @@ ResNet / CLIP → 08
 - [x] 跑通 5 个 episode 并计算 average reward
 - [x] 在 `stage03-robot-sim/README.md` 中记录实验结果和问题
 - [x] 将 random policy 代码整理成函数：`run_one_episode` / `run_many_episodes` / `main`
-- [ ] 进入 MuJoCo 或 ManiSkill 前，理解当前 CartPole demo 与机械臂仿真的对应关系
+- [x] 进入 MuJoCo 前，理解当前 CartPole demo 与机械臂仿真的对应关系
+- [x] 跑通 MuJoCo 单步 step
+- [x] 跑通 MuJoCo 10 步随机动作
+- [x] 跑通 MuJoCo 完整 episode
+- [x] 跑通 MuJoCo 5 个 episode 并计算 average reward
+- [x] 尝试 MuJoCo render 可视化
+- [x] 安装并跑通 ManiSkill
+- [x] 跑通 ManiSkill PickCube-v1 单步 step
+- [x] 跑通 ManiSkill 完整 episode
+- [x] 跑通 ManiSkill 5 个 episode 并计算 average reward
+- [x] 跑通 ManiSkill render 可视化
+- [ ] 整理 Stage 03 代码目录结构并提交 GitHub
 
 当前不要做：
 

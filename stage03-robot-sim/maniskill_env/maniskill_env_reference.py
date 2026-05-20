@@ -1,11 +1,12 @@
 import gymnasium as gym
+import mani_skill.envs
 
 
-ENV_NAME = "InvertedPendulum-v5"
+ENV_NAME = "PickCube-v1"
 
 
 def make_env():
-    return gym.make(ENV_NAME)
+    return gym.make(ENV_NAME, obs_mode="state", render_mode=None)       #？这几个参数的作用
 
 
 def reset_env(env):
@@ -27,13 +28,9 @@ def print_space_info(env):
     print(f"action space: {env.action_space}")
 
 
-def print_step_result(observation, action, next_observation, reward, terminated, truncated):
-    print(f"observation: {observation}")
-    print(f"action: {action}")
-    print(f"next observation: {next_observation}")
-    print(f"reward: {reward}")
-    print(f"terminated: {terminated}")
-    print(f"truncated: {truncated}")
+def print_object_info(name, obj):
+    print(f"{name} type: {type(obj)}")
+    print(f"{name}: {obj}")
 
 
 def main():
@@ -45,14 +42,12 @@ def main():
     action = sample_action(env)
     next_observation, reward, terminated, truncated, info = step_env(env, action)
 
-    print_step_result(
-        observation=observation,
-        action=action,
-        next_observation=next_observation,
-        reward=reward,
-        terminated=terminated,
-        truncated=truncated,
-    )
+    print_object_info("observation", observation)
+    print_object_info("action", action)
+    print_object_info("next observation", next_observation)
+    print_object_info("reward", reward)
+    print_object_info("terminated", terminated)
+    print_object_info("truncated", truncated)
 
     env.close()
 
