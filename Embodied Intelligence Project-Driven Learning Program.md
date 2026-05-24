@@ -60,6 +60,17 @@ LeRobot / SO-101 机械臂
 - API 不再堆在一个长文件里，而是按功能模块拆分，方便后续查找。
 - 后续参考代码默认使用纯代码版本，不添加讲解型注释；学习时由我在 `*_reference.py` 中不理解的代码旁用 `#？` 标记问题，再把这些问题整理进对应阶段目录的 `README.md`。
 - 手敲代码时，如果发现关键逻辑、易错点或重要理解，用 `#k` 标记；阶段整理时将这些内容归纳到对应 `README.md` 的 `Key Takeaways`。
+- 每个阶段初期可以使用 `*_reference.py` 作为脚手架，帮助理解新概念和新库接口；但随着阶段推进，逐步减少直接给完整参考代码，改为先由我自己写目标拆解、伪代码、函数接口和最小实现。
+- 遇到新任务时，优先训练独立代码能力：先回答“输入是什么、输出是什么、关键函数是什么、数据流怎么走、怎么验证是否成功”，再写代码；报错时先定位原因，再最小修改。
+- 参考代码的作用是降低第一次接触的门槛，不是长期替代自己设计程序。阶段后半段必须安排 1-2 个“无完整 reference”的小任务，用来训练独立实现和 debug 能力。
+
+阶段内代码能力推进方式：
+
+```text
+阶段初期：阅读 reference -> 标记 #？ -> 手敲复现
+阶段中期：给目标和接口 -> 自己补实现 -> 报错后定位修正
+阶段后期：自己拆任务 -> 写伪代码 -> 独立实现 -> 记录 debug log
+```
 
 ## 3. 阶段路线总览
 
@@ -336,6 +347,16 @@ action = policy(observation)
 
 ### 任务清单
 
+- [x] 完成 toy behavior cloning 最小闭环
+- [x] 画出 toy BC loss 曲线
+- [x] 将 Stage 04 整理为 `toy_bc/` 与 `cartpole_bc/`
+- [x] 跑通 CartPole behavior cloning reference
+- [x] 手敲 CartPole behavior cloning
+- [x] 记录 CartPole BC debug 过程和解决方法
+- [x] 独立实现 CartPole learned policy rollout
+- [x] 完成 learned policy 与 random policy 的 5 轮平均 reward 对比
+- [x] 完成 CartPole BC 模型保存与加载，并使用加载后的模型 rollout
+- [x] 构造 CartPole episode 格式 demonstration dataset，并完成保存、加载、检查
 - [ ] 跑通 robomimic 或 LeRobot 中的 BC baseline
 - [ ] 理解数据格式：
   - observation
@@ -358,10 +379,18 @@ action = policy(observation)
 
 ```text
 stage04-behavior-cloning/
-  train_bc.py
-  eval_bc.py
-  configs/
   README.md
+  toy_bc/
+    toy_bc_reference.py
+    toy_bc.py
+    images/
+  cartpole_bc/
+    cartpole_bc_reference.py
+    cartpole_bc.py
+    cartpole_bc_rollout.py
+    cartpole_bc_save_load.py
+    cartpole_demonstration_dataset.py
+    data/
 ```
 
 ## 8. 阶段 5：论文伴读与最小复现
@@ -398,6 +427,11 @@ stage04-behavior-cloning/
 
 ### 任务清单
 
+- [x] 生成 `stage05-act-policy/README.md`
+- [x] 理解普通 BC 与 action chunk 的区别
+- [x] 从 CartPole demonstration dataset 构造 action chunk dataset
+- [x] 打印并解释 `chunk_observations.shape` 和 `action_chunks.shape`
+- [ ] 训练最小 chunk policy，理解模型输出 `[batch, K]`
 - [ ] 写 ACT 论文笔记
 - [ ] 写 Diffusion Policy 论文笔记
 - [ ] 跑 ACT 或 Diffusion Policy 的最小 demo
@@ -440,6 +474,7 @@ papers/
 
 stage05-act-policy/
   README.md
+  action_chunk_dataset.py
   experiments.md
 
 stage06-diffusion-policy/
@@ -557,6 +592,8 @@ embodied-ai-roadmap/
   stage02-vision-features/
   stage03-robot-sim/
   stage04-behavior-cloning/
+    toy_bc/
+    cartpole_bc/
   stage05-act-policy/
   stage06-diffusion-policy/
 
@@ -653,6 +690,11 @@ mini classification
 -> MuJoCo physics simulation and render
 -> ManiSkill robot arm simulation
 -> behavior cloning
+-> learned policy rollout
+-> random policy comparison
+-> save/load policy checkpoint
+-> demonstration dataset format
+-> action chunk dataset
 -> real robot policy
 ```
 
@@ -724,7 +766,7 @@ ResNet / CLIP → 08
 
 ## 14. 当前最近任务
 
-当前阶段：阶段 3，机器人仿真跑起来。
+当前阶段：阶段 5，ACT / action chunk 最小理解。
 
 最近目标：
 
@@ -750,7 +792,30 @@ ResNet / CLIP → 08
 - [x] 跑通 ManiSkill 完整 episode
 - [x] 跑通 ManiSkill 5 个 episode 并计算 average reward
 - [x] 跑通 ManiSkill render 可视化
-- [ ] 整理 Stage 03 代码目录结构并提交 GitHub
+- [x] 整理 Stage 03 代码目录结构并提交 GitHub
+- [x] 生成 `stage04-behavior-cloning/README.md`
+- [x] 生成并理解 toy behavior cloning reference
+- [x] 手敲 toy behavior cloning 代码
+- [x] 跑通 observation -> policy -> action 的最小监督学习闭环
+- [x] 画出 toy behavior cloning training loss 曲线
+- [x] 在 Stage 04 README 中记录实验结果、`#？` 和 `#k`
+- [x] 整理 Stage 04 目录结构：`toy_bc/` 与 `cartpole_bc/`
+- [x] 生成 CartPole behavior cloning reference
+- [x] 手敲并跑通 CartPole behavior cloning
+- [x] 在 Stage 04 README 中记录 CartPole BC 的 debug 过程
+- [x] 让训练出的 CartPole policy 回到环境中运行一个 episode
+- [x] 比较 random policy 和 behavior cloning policy 的区别
+- [x] 记录 learned policy 与 random policy 的平均 reward 对比：46.0 vs 23.8
+- [x] 总结 behavior cloning 的局限：训练准确率高不等于 rollout 一定稳定
+- [x] 保存并加载 CartPole BC 模型，加载后 rollout 结果：reward=54.0, steps=54
+- [x] 进入真实 demonstration 数据格式理解：episode / observation / action / state / image
+- [x] 保存并检查 CartPole demonstration dataset：episodes=5, first_episode_len=27
+- [x] 决定下一阶段入口：进入 ACT 的 action chunk 最小理解
+- [x] 生成 `stage05-act-policy/README.md`
+- [x] 生成 `stage05-act-policy/action_chunk_dataset.py` 半脚手架
+- [x] 完成 `action_chunk_dataset.py`：从 episode 构造 `observation[t] -> actions[t:t+K]`
+- [x] action chunk dataset 输出：`chunk_observations=(170, 4)`, `action_chunks=(170, 4)`
+- [ ] 进入最小 chunk policy 训练：`observation -> action_chunk`
 
 当前不要做：
 
@@ -762,4 +827,4 @@ ResNet / CLIP → 08
 
 当前最重要的是：
 
-> 从“模型理解图片”过渡到“程序控制环境”：先跑通 observation → action → env.step(action) 的最小闭环，再进入机械臂仿真。
+> 从 single-step BC 过渡到 action chunk：理解 `observation[t] -> actions[t:t+K]`。
