@@ -431,8 +431,14 @@ stage04-behavior-cloning/
 - [x] 理解普通 BC 与 action chunk 的区别
 - [x] 从 CartPole demonstration dataset 构造 action chunk dataset
 - [x] 打印并解释 `chunk_observations.shape` 和 `action_chunks.shape`
-- [ ] 训练最小 chunk policy，理解模型输出 `[batch, K]`
-- [ ] 写 ACT 论文笔记
+- [x] 完成 ACT 论文第一轮阅读：动机、输入输出、action chunking
+- [x] 训练最小 chunk policy，理解模型输出 `[batch, K, num_actions]`
+- [x] 计算 chunk policy 的 element accuracy 与 exact accuracy
+- [x] 写 ACT 论文笔记
+- [x] 实现 toy temporal ensemble demo：重叠 chunk 投票融合
+- [x] 将 temporal ensemble 接到模型预测 action chunks 上
+- [x] 生成 `stage06-diffusion-policy/README.md`
+- [x] 生成 Diffusion Policy 论文笔记入口到 `literature-notes`
 - [ ] 写 Diffusion Policy 论文笔记
 - [ ] 跑 ACT 或 Diffusion Policy 的最小 demo
 - [ ] 对比 BC 与 ACT / Diffusion Policy 的结果
@@ -475,6 +481,7 @@ papers/
 stage05-act-policy/
   README.md
   action_chunk_dataset.py
+  chunk_policy.py
   experiments.md
 
 stage06-diffusion-policy/
@@ -640,34 +647,46 @@ embodied-ai-roadmap/
 每个阶段结束时，不只记录“做了什么”，还要整理“为什么这样学”。  
 复盘重点是学习逻辑链，而不是写长篇总结。
 
-推荐模板：
+固定复盘规则：
+
+- 每个阶段 README 必须包含 `Learning Logic Chain` 和 `Guided Stage Review`；
+- 逻辑链不再写成知识点堆叠，而是写成“问题 -> 方法 -> 新问题 -> 新方法”；
+- 每个新知识点都要回答：它是为了解决上一个什么问题出现的；
+- 每个阶段复盘都要说明：这个阶段如何把能力推进到最终机械臂项目；
+- `Guided Stage Review` 用于记录阶段复盘、无法理解的点、关键提问和阶段性答案，不必让用户重复回答已经讲清楚的问题。
+
+标准模板：
 
 ```text
 ## Learning Logic Chain
 
-A
--> B
--> C
--> D
+问题 1：当前任务遇到了什么限制？
+-> 方法 1：引入什么概念 / 代码 / 模型来解决？
+-> 新问题 2：方法 1 又带来了什么新问题？
+-> 方法 2：继续引入什么机制解决？
+-> 和最终机械臂项目的关系：这个阶段让系统多具备了什么能力？
 
 一句话说明：
-这个阶段把什么能力推进到了什么能力。
+这个阶段从什么能力推进到了什么能力。
 
 ## Guided Stage Review
 
-这个区域不要直接写成完整答案，而是用填空和提问引导我自己复盘。
+这个区域用于整理阶段复盘、关键问题、无法理解的点和阶段性答案。
+如果问题已经在对话中讲清楚，可以直接整理答案，不必让我重复回答。
 
-1. 这个阶段为什么从 A 进入 B？
+1. 本阶段最开始的问题是什么？
 
-2. A 和 B 的共同点是什么？
+2. 为了解决这个问题，引入了什么方法？
 
-3. A 和 B 的关键区别是什么？
+3. 这个方法又带来了什么新问题？
 
-4. 本阶段最重要的代码接口是什么？
+4. 下一步方法如何解决这个新问题？
 
-5. 本阶段哪个概念最接近最终机械臂项目？
+5. 本阶段最重要的代码接口 / 数据流是什么？
 
-6. 如果复试老师问“你为什么这样安排学习顺序”，我该怎么回答？
+6. 它和最终真实机械臂项目有什么关系？
+
+7. 当前还有哪些无法理解的点？
 
 下一阶段最小目标：
 - 
@@ -695,6 +714,8 @@ mini classification
 -> save/load policy checkpoint
 -> demonstration dataset format
 -> action chunk dataset
+-> chunk policy
+-> temporal ensemble
 -> real robot policy
 ```
 
@@ -815,7 +836,20 @@ ResNet / CLIP → 08
 - [x] 生成 `stage05-act-policy/action_chunk_dataset.py` 半脚手架
 - [x] 完成 `action_chunk_dataset.py`：从 episode 构造 `observation[t] -> actions[t:t+K]`
 - [x] action chunk dataset 输出：`chunk_observations=(170, 4)`, `action_chunks=(170, 4)`
-- [ ] 进入最小 chunk policy 训练：`observation -> action_chunk`
+- [x] 更新 ACT 论文笔记到 `literature-notes`
+- [x] 生成 `chunk_policy.py` 半脚手架
+- [x] 完成最小 chunk policy 训练：`observation -> action_chunk`
+- [x] chunk policy 结果：element accuracy=0.975, exact accuracy=0.90
+- [x] 理解 ACT temporal ensemble：多个重叠 action chunk 如何融合成最终动作
+- [x] 实现 toy temporal ensemble demo：重叠 chunk 投票融合，输出 `[0, 0, 1, 1, 0, 0]`
+- [x] 将 temporal ensemble 接到模型预测 action chunks 上，输出 `[0, 0, 0, 0, 0, 1]`
+- [ ] 收束 Stage 05：检查代码结构、整理结果、记录未理解问题
+- [x] 决定下一阶段入口：Diffusion Policy 论文
+- [x] 生成 `stage06-diffusion-policy/README.md`
+- [x] 生成 `literature-notes/notes/embodied-intelligence/diffusion-policy.md`
+- [ ] 第一轮阅读 Diffusion Policy，只回答 8 个问题
+- [ ] 理解 noise / timestep / denoise 三个概念
+- [ ] 设计 toy diffusion action demo 的输入、输出和验证方式
 
 当前不要做：
 
@@ -827,4 +861,4 @@ ResNet / CLIP → 08
 
 当前最重要的是：
 
-> 从 single-step BC 过渡到 action chunk：理解 `observation[t] -> actions[t:t+K]`。
+> 进入 Diffusion Policy 第一轮：先理解它为什么从“直接预测动作序列”变成“通过去噪生成动作序列”。
